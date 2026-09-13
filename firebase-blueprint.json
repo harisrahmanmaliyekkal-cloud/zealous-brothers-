@@ -1,0 +1,107 @@
+{
+  "entities": {
+    "donor": {
+      "title": "Donor",
+      "description": "Registered voluntary blood donor for Zealous Brothers Sanjeevani registry",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Full name of donor" },
+        "bloodGroup": { "type": "string", "enum": ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"] },
+        "phone": { "type": "string", "description": "Contact phone number" },
+        "location": { "type": "string", "description": "Locality or town in Puthuponnani" },
+        "age": { "type": "number", "description": "Age of donor" },
+        "lastDonationDate": { "type": "string", "description": "Last donation date" },
+        "isAvailable": { "type": "boolean", "description": "Availability status" },
+        "registeredAt": { "type": "string", "description": "Timestamp of registration" }
+      },
+      "required": ["name", "bloodGroup", "phone", "location"]
+    },
+    "program": {
+      "title": "Program",
+      "description": "Club events, tournaments, charity and cultural announcements",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Title of the event or program" },
+        "category": { "type": "string", "enum": ["Sports", "Charity", "Cultural", "Healthcare", "Youth"] },
+        "date": { "type": "string", "description": "Date of the event" },
+        "time": { "type": "string", "description": "Time or timing" },
+        "venue": { "type": "string", "description": "Location or ground" },
+        "description": { "type": "string", "description": "Details about the event" },
+        "status": { "type": "string", "enum": ["Upcoming", "Ongoing", "Completed"] },
+        "imageUrl": { "type": "string", "description": "Event poster or photo URL" },
+        "organizerContact": { "type": "string", "description": "Phone number for queries" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" }
+      },
+      "required": ["title", "category", "date", "venue", "description", "status"]
+    },
+    "setting": {
+      "title": "ClubSetting",
+      "description": "Club custom configuration like official logo and banners",
+      "type": "object",
+      "properties": {
+        "logoUrl": { "type": "string", "description": "Custom logo data URL or image path" },
+        "updatedAt": { "type": "string", "description": "Timestamp of update" }
+      }
+    },
+    "member": {
+      "title": "Member",
+      "description": "Registered member of Zealous Brothers Club with membership identification",
+      "type": "object",
+      "properties": {
+        "memberId": { "type": "string", "description": "Unique membership identification number" },
+        "name": { "type": "string", "description": "Full name of member" },
+        "role": { "type": "string", "description": "Club designation or committee role" },
+        "bloodGroup": { "type": "string", "enum": ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"] },
+        "phone": { "type": "string", "description": "Contact phone or WhatsApp number" },
+        "joiningDate": { "type": "string", "description": "Joining date of the member" },
+        "photoUrl": { "type": "string", "description": "Member profile photo data URL or image URL" },
+        "address": { "type": "string", "description": "Residential address or ward" },
+        "locality": { "type": "string", "description": "Town or locality in Puthuponnani" },
+        "status": { "type": "string", "enum": ["Active", "Honorary", "Alumni"] },
+        "createdAt": { "type": "string", "description": "Timestamp of record creation" }
+      },
+      "required": ["memberId", "name", "role", "bloodGroup", "phone", "joiningDate"]
+    },
+    "magazine": {
+      "title": "Magazine",
+      "description": "Official annual club souvenir magazines and digital publications",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Title of the magazine publication" },
+        "edition": { "type": "string", "description": "Edition designation or volume number" },
+        "year": { "type": "string", "description": "Year of publication" },
+        "coverImage": { "type": "string", "description": "Cover page image URL or data URL" },
+        "description": { "type": "string", "description": "Synopsis and editorial overview" },
+        "pageCount": { "type": "number", "description": "Total page count" },
+        "fileSize": { "type": "string", "description": "File size notation" },
+        "downloadUrl": { "type": "string", "description": "Download URL or external link" },
+        "highlights": { "type": "array", "items": { "type": "string" }, "description": "Key articles and highlights" },
+        "pdfDataUrl": { "type": "string", "description": "Document data URL or uploaded file payload" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" }
+      },
+      "required": ["title", "edition", "year", "description"]
+    }
+  },
+  "firestore": {
+    "/donors/{donorId}": {
+      "schema": "donor",
+      "description": "Public voluntary blood donor directory for emergency assistance"
+    },
+    "/programs/{programId}": {
+      "schema": "program",
+      "description": "Official club programs and community announcements"
+    },
+    "/settings/{settingId}": {
+      "schema": "setting",
+      "description": "Application and branding settings"
+    },
+    "/members/{memberId}": {
+      "schema": "member",
+      "description": "Official club membership directory for ID card generation and public verification"
+    },
+    "/magazines/{magazineId}": {
+      "schema": "magazine",
+      "description": "Official club annual magazines and souvenir documents"
+    }
+  }
+}

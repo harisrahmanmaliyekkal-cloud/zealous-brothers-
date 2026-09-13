@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <path id="circleTopPath" d="M 90 250 A 160 160 0 0 1 410 250" fill="none" />
+    <path id="circleBottomPath" d="M 405 250 A 155 155 0 0 1 95 250" fill="none" />
+  </defs>
+
+  <!-- Transparent or Clean Circle -->
+  <!-- Outer concentric circles -->
+  <circle cx="250" cy="250" r="236" stroke="#0077b6" stroke-width="6" fill="none" />
+  <circle cx="250" cy="250" r="226" stroke="#0077b6" stroke-width="2.5" fill="none" />
+  <circle cx="250" cy="250" r="156" stroke="#0077b6" stroke-width="3" fill="none" />
+  <circle cx="250" cy="250" r="148" stroke="#0077b6" stroke-width="1.5" fill="none" />
+
+  <!-- Divider dots -->
+  <circle cx="92" cy="250" r="4.5" fill="#0077b6" />
+  <circle cx="408" cy="250" r="4.5" fill="#0077b6" />
+
+  <!-- Top Text: KALA SAMSKARIKA VEDI -->
+  <text font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="22" font-weight="900" fill="#0077b6" letter-spacing="4.5">
+    <textPath href="#circleTopPath" startOffset="50%" text-anchor="middle">
+      KALA SAMSKARIKA VEDI
+    </textPath>
+  </text>
+
+  <!-- Bottom Text: PUTHUPONNANI -->
+  <text font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="21" font-weight="900" fill="#0077b6" letter-spacing="5">
+    <textPath href="#circleBottomPath" startOffset="50%" text-anchor="middle">
+      PUTHUPONNANI
+    </textPath>
+  </text>
+
+  <!-- Center Torch & Wings -->
+  <!-- Left Wing -->
+  <g fill="#0077b6">
+    <path d="M 220 180 C 190 145 155 170 142 195 C 138 208 132 230 152 250 C 158 256 176 266 200 272 C 182 254 172 232 178 214 C 184 196 202 184 220 180 Z" />
+    <path d="M 190 205 C 168 175 140 200 134 222 C 130 238 134 260 156 278 C 168 286 186 292 208 294 C 186 280 170 258 174 236 C 178 220 186 210 190 205 Z" opacity="0.9" />
+  </g>
+
+  <!-- Right Wing -->
+  <g fill="#0077b6">
+    <path d="M 280 180 C 310 145 345 170 358 195 C 362 208 368 230 348 250 C 342 256 324 266 300 272 C 318 254 328 232 322 214 C 316 196 298 184 280 180 Z" />
+    <path d="M 310 205 C 332 175 360 200 366 222 C 370 238 366 260 344 278 C 332 286 314 292 292 294 C 314 280 330 258 326 236 C 322 220 314 210 310 205 Z" opacity="0.9" />
+  </g>
+
+  <!-- Upright Torch -->
+  <!-- Flames -->
+  <path d="M 250 140 C 242 160 232 170 240 188 C 244 195 248 198 250 205 C 252 198 256 195 260 188 C 268 170 258 160 250 140 Z" fill="#0077b6" />
+  <path d="M 240 162 C 234 172 228 182 235 192 C 237 190 241 184 240 178 Z" fill="#0077b6" />
+  <path d="M 260 162 C 266 172 272 182 265 192 C 263 190 259 184 260 178 Z" fill="#0077b6" />
+
+  <!-- Torch Bowl -->
+  <path d="M 235 205 L 265 205 L 260 216 L 240 216 Z" fill="#0077b6" />
+  <!-- Torch Handle -->
+  <rect x="246" y="216" width="8" height="74" fill="#0077b6" />
+
+  <!-- Central Ribbon with ZEALOUS BROTHERS -->
+  <path d="M 175 285 C 205 278 230 278 250 278 C 270 278 295 278 325 285 C 315 302 290 310 250 310 C 210 310 185 302 175 285 Z" fill="#0077b6" />
+  <text x="250" y="299" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="12" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="2">
+    ZEALOUS BROTHERS
+  </text>
+
+  <!-- 1994 below ribbon -->
+  <text x="250" y="328" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="14" font-weight="800" fill="#0077b6" text-anchor="middle" letter-spacing="2">
+    1994
+  </text>
+</svg>

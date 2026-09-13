@@ -1,0 +1,6 @@
+{
+  "name": "ZEALOUS BROTHERS",
+  "description": "Official web platform for ZEALOUS BROTHERS featuring community programs, blood donation wing, annual club magazine, moments gallery, and protected admin dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

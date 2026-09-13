@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+:root {
+  --brand-blue: #0072ce;
+  --brand-blue-hover: #005bb5;
+  --brand-blue-deep: #00386e;
+  --brand-blue-light: #e0f2fe;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', 'Manjari', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #0f172a;
+  background-color: #f8fafc;
+}
+
