@@ -15,7 +15,7 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenRegisterDonor }) => {
-  const { heroBannerUrl } = useClub();
+  const { heroBannerUrl, heroBannerPosition } = useClub();
   const [showPanoramaModal, setShowPanoramaModal] = useState(false);
 
   // Features matching the 4 floating cards in ui.png
@@ -47,15 +47,17 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRegisterDonor }) => {
   ];
 
   const currentBannerSource = heroBannerUrl || '/hero-puthuponnani.jpg';
+  const bannerFocalPoint = heroBannerPosition || 'center 72%';
 
   return (
     <section id="hero" className="relative bg-slate-50">
-      {/* 1. Panoramic Scenic Hero Banner Image */}
-      <div className="relative w-full h-[260px] sm:h-[340px] md:h-[400px] lg:h-[460px] xl:h-[500px] bg-slate-900 overflow-hidden group">
+      {/* 1. Panoramic Scenic Hero Banner Image - Positioned to fit the beach, river and boat view */}
+      <div className="relative w-full h-[280px] sm:h-[360px] md:h-[420px] lg:h-[480px] xl:h-[530px] bg-slate-900 overflow-hidden group">
         <img
           src={currentBannerSource}
           alt="Zealous Brothers Official Header Banner - Puthuponnani Estuary & Beach"
-          className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.01]"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.01]"
+          style={{ objectPosition: bannerFocalPoint }}
           referrerPolicy="no-referrer"
           onError={(e) => {
             const target = e.currentTarget;
@@ -81,8 +83,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRegisterDonor }) => {
         </button>
       </div>
 
-      {/* 2. Floating 4-Feature Card Bar overlapping Hero (Properly fitted with gentle overlap) */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-20 -mt-8 sm:-mt-12 lg:-mt-14">
+      {/* 2. Floating 4-Feature Card Bar overlapping Hero with gentle margin */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-20 -mt-6 sm:-mt-8 lg:-mt-10">
         <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 p-4 sm:p-6 lg:p-7 transition-all">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 divide-y-0 sm:divide-x divide-slate-100">
             {floatingFeatures.map((item, index) => {

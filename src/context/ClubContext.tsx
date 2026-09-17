@@ -31,6 +31,7 @@ interface ClubContextType {
   adminUserEmail: string | null;
   customLogoUrl: string | null;
   heroBannerUrl: string;
+  heroBannerPosition: string;
   isLogoUploadModalOpen: boolean;
   openLogoUploadModal: () => void;
   closeLogoUploadModal: () => void;
@@ -38,6 +39,7 @@ interface ClubContextType {
   resetCustomLogo: () => Promise<void>;
   uploadHeroBanner: (bannerDataUrl: string) => Promise<{ success: boolean; error?: string }>;
   resetHeroBanner: () => Promise<void>;
+  updateHeroBannerPosition: (position: string) => Promise<{ success: boolean; error?: string }>;
   addDonor: (donor: Omit<Donor, 'id'>) => Promise<{ success: boolean; error?: string }>;
   deleteDonor: (id: string) => Promise<{ success: boolean; error?: string }>;
   toggleDonorAvailability: (id: string, currentStatus?: boolean) => Promise<void>;
@@ -85,10 +87,34 @@ export const ClubProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       return '/hero-puthuponnani.jpg';
     }
   });
+  const [heroBannerPosition, setHeroBannerPosition] = useState<string>(() => {
+    try {
+      return localStorage.getItem('zealous_hero_banner_pos') || 'center 72%';
+    } catch {
+      return 'center 72%';
+    }
+  });
   const [isLogoUploadModalOpen, setIsLogoUploadModalOpen] = useState(false);
 
   const openLogoUploadModal = () => setIsLogoUploadModalOpen(true);
   const closeLogoUploadModal = () => setIsLogoUploadModalOpen(false);
+
+  const updateHeroBannerPosition = async (position: string) => {
+    try {
+      setHeroBannerPosition(position);
+      localStorage.setItem('zealous_hero_banner_pos', position);
+      try {
+        const settingsDoc = doc(db, 'settings', 'branding');
+        await setDoc(settingsDoc, { heroBannerPosition: position, updatedAt: new Date().toISOString() }, { merge: true });
+      } catch (firestoreErr) {
+        console.info('Hero banner position saved to local browser storage:', firestoreErr);
+      }
+      showToast('ബാനർ വ്യൂ ക്രമീകരിച്ചു! (Banner position updated)');
+      return { success: true };
+    } catch (err: any) {
+      return { success: false, error: err.message || 'Failed to update banner position' };
+    }
+  };
 
   const uploadHeroBanner = async (bannerDataUrl: string) => {
     try {
@@ -178,6 +204,10 @@ export const ClubProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           if (data?.heroBannerUrl) {
             setHeroBannerUrl(data.heroBannerUrl);
             localStorage.setItem('zealous_hero_banner', data.heroBannerUrl);
+          }
+          if (data?.heroBannerPosition) {
+            setHeroBannerPosition(data.heroBannerPosition);
+            localStorage.setItem('zealous_hero_banner_pos', data.heroBannerPosition);
           }
         }
       }, (err) => {
@@ -843,6 +873,7 @@ export const ClubProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         adminUserEmail,
         customLogoUrl,
         heroBannerUrl,
+        heroBannerPosition,
         isLogoUploadModalOpen,
         openLogoUploadModal,
         closeLogoUploadModal,
@@ -850,6 +881,7 @@ export const ClubProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         resetCustomLogo,
         uploadHeroBanner,
         resetHeroBanner,
+        updateHeroBannerPosition,
         addDonor,
         deleteDonor,
         toggleDonorAvailability,

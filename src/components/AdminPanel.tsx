@@ -53,8 +53,10 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ isOpen, onClose, onOpenV
     magazines,
     customLogoUrl,
     heroBannerUrl,
+    heroBannerPosition,
     uploadHeroBanner,
     resetHeroBanner,
+    updateHeroBannerPosition,
     openLogoUploadModal,
     resetCustomLogo
   } = useClub();
@@ -1034,18 +1036,85 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ isOpen, onClose, onOpenV
                   </div>
 
                   {/* Banner Preview */}
-                  <div className="relative rounded-2xl overflow-hidden border border-sky-500/30 max-h-56">
+                  <div className="relative rounded-2xl overflow-hidden border border-sky-500/30 max-h-60 bg-slate-950">
                     <img
                       src={heroBannerUrl || '/hero-puthuponnani.jpg'}
                       alt="Current Hero Banner Preview"
-                      className="w-full h-56 object-cover object-center"
+                      className="w-full h-60 object-cover transition-all duration-300"
+                      style={{ objectPosition: heroBannerPosition || 'center 72%' }}
                       referrerPolicy="no-referrer"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#001733]/90 via-transparent to-transparent flex items-end p-4">
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#001733]/90 via-transparent to-transparent flex items-end p-4 pointer-events-none">
                       <div className="text-xs text-white font-medium flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                        <span>Active Hero Banner: Puthuponnani Estuary & Beach (പുതുപൊന്നാനി)</span>
+                        <span>Active Hero Banner: Puthuponnani Estuary & Beach (വ്യൂ: {heroBannerPosition || 'center 72%'})</span>
                       </div>
+                    </div>
+                  </div>
+
+                  {/* Banner View & Framing Adjustment Controls */}
+                  <div className="bg-[#001733] border border-sky-500/20 rounded-2xl p-4 space-y-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <span className="text-xs font-bold text-sky-200">
+                        ബാനർ വ്യൂ ക്രമീകരണം (Banner View Alignment / Framing):
+                      </span>
+                      <span className="text-[11px] text-sky-400 font-mono">
+                        നിലവിലെ പൊസിഷൻ: {heroBannerPosition || 'center 72%'}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                      <button
+                        type="button"
+                        onClick={() => updateHeroBannerPosition('center 72%')}
+                        className={`px-3 py-2 rounded-xl text-xs font-bold transition border cursor-pointer text-left ${
+                          (heroBannerPosition || 'center 72%') === 'center 72%'
+                            ? 'bg-[#0072ce] text-white border-sky-400 shadow-md'
+                            : 'bg-[#002244] text-sky-200 border-sky-500/30 hover:bg-[#003366]'
+                        }`}
+                      >
+                        <div className="font-extrabold">🌊 തീരവും പുഴയും</div>
+                        <div className="text-[10px] opacity-80 mt-0.5">Best View (72%)</div>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => updateHeroBannerPosition('center 80%')}
+                        className={`px-3 py-2 rounded-xl text-xs font-bold transition border cursor-pointer text-left ${
+                          heroBannerPosition === 'center 80%'
+                            ? 'bg-[#0072ce] text-white border-sky-400 shadow-md'
+                            : 'bg-[#002244] text-sky-200 border-sky-500/30 hover:bg-[#003366]'
+                        }`}
+                      >
+                        <div className="font-extrabold">🚤 വഞ്ചിയും കരയും</div>
+                        <div className="text-[10px] opacity-80 mt-0.5">Lower Focus (80%)</div>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => updateHeroBannerPosition('center 65%')}
+                        className={`px-3 py-2 rounded-xl text-xs font-bold transition border cursor-pointer text-left ${
+                          heroBannerPosition === 'center 65%'
+                            ? 'bg-[#0072ce] text-white border-sky-400 shadow-md'
+                            : 'bg-[#002244] text-sky-200 border-sky-500/30 hover:bg-[#003366]'
+                        }`}
+                      >
+                        <div className="font-extrabold">🌅 സന്തുലിതം</div>
+                        <div className="text-[10px] opacity-80 mt-0.5">Balanced (65%)</div>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => updateHeroBannerPosition('center 50%')}
+                        className={`px-3 py-2 rounded-xl text-xs font-bold transition border cursor-pointer text-left ${
+                          heroBannerPosition === 'center 50%'
+                            ? 'bg-[#0072ce] text-white border-sky-400 shadow-md'
+                            : 'bg-[#002244] text-sky-200 border-sky-500/30 hover:bg-[#003366]'
+                        }`}
+                      >
+                        <div className="font-extrabold">🌴 ആകാശവും തെങ്ങും</div>
+                        <div className="text-[10px] opacity-80 mt-0.5">Center Sky (50%)</div>
+                      </button>
                     </div>
                   </div>
                 </div>
