@@ -24,7 +24,7 @@ export const ClubLogo: React.FC<ClubLogoProps> = ({
   showRegNo = true,
   logoUrl,
 }) => {
-  // Check for uploaded custom logo from context or prop
+  // Check for uploaded custom logo from context or prop, defaulting to authentic official emblem
   let activeCustomLogo: string | null = logoUrl || null;
   try {
     const club = useClub();
@@ -35,6 +35,11 @@ export const ClubLogo: React.FC<ClubLogoProps> = ({
     // Rendered outside provider, use prop or fallback
   }
 
+  // Default to the exact authentic uploaded logo image
+  if (!activeCustomLogo) {
+    activeCustomLogo = '/zb-official-logo.png';
+  }
+
   // Color configuration based on theme
   const isBlueBg = theme === 'blue-bg' || theme === 'royal-blue';
   const isWhiteBg = theme === 'white-bg';
@@ -43,13 +48,15 @@ export const ClubLogo: React.FC<ClubLogoProps> = ({
   const primaryColor = isBlueBg || isTransparentWhite ? '#FFFFFF' : '#0072CE';
   const bgColor = isBlueBg ? '#0072CE' : isWhiteBg ? '#FFFFFF' : 'transparent';
 
-  // 1. If an authentic logo has been uploaded by the user, render it directly as-is
+  // 1. If an authentic logo has been uploaded or defaulted, render it directly as-is
   if (activeCustomLogo) {
     if (variant === 'emblem') {
       return (
         <div
-          className={`inline-flex items-center justify-center rounded-full overflow-hidden shrink-0 bg-white shadow-md ${
-            isBlueBg ? 'ring-2 ring-white/30 shadow-sky-950/20' : 'ring-1 ring-slate-200'
+          className={`inline-flex items-center justify-center rounded-full overflow-hidden shrink-0 ${
+            isTransparentWhite || theme === 'transparent-blue' ? 'bg-transparent' : 'bg-white shadow-xs'
+          } ${
+            isBlueBg ? 'ring-2 ring-white/30 shadow-sky-950/20' : theme === 'transparent-blue' ? '' : 'ring-1 ring-slate-100'
           } ${className}`}
           style={{ width: size, height: size }}
           title="സെലസ് ബ്രദേഴ്സ് ഔദ്യോഗിക ലോഗോ"
@@ -57,7 +64,7 @@ export const ClubLogo: React.FC<ClubLogoProps> = ({
           <img
             src={activeCustomLogo}
             alt="Zealous Brothers Official Logo"
-            className="w-full h-full object-contain p-[5%]"
+            className="w-full h-full object-contain"
             referrerPolicy="no-referrer"
           />
         </div>
@@ -68,7 +75,9 @@ export const ClubLogo: React.FC<ClubLogoProps> = ({
       return (
         <div className={`flex items-center gap-3 ${className}`}>
           <div
-            className={`shrink-0 rounded-full overflow-hidden flex items-center justify-center bg-white ${
+            className={`shrink-0 rounded-full overflow-hidden flex items-center justify-center ${
+              isTransparentWhite || theme === 'transparent-blue' ? 'bg-transparent' : 'bg-white'
+            } ${
               isBlueBg ? 'ring-2 ring-white/20' : 'ring-1 ring-slate-200'
             }`}
             style={{ width: size, height: size }}
@@ -76,32 +85,35 @@ export const ClubLogo: React.FC<ClubLogoProps> = ({
             <img
               src={activeCustomLogo}
               alt="Zealous Brothers Logo"
-              className="w-full h-full object-contain p-[6%]"
+              className="w-full h-full object-contain"
               referrerPolicy="no-referrer"
             />
           </div>
-          <div className="flex flex-col justify-center select-none">
+          <div className="flex flex-col justify-center select-none leading-tight">
             <span
-              className={`font-black tracking-tight leading-none ${
+              className={`font-black tracking-tight ${
                 isBlueBg || isTransparentWhite ? 'text-white' : 'text-[#0072ce]'
               }`}
-              style={{ fontSize: typeof size === 'number' ? `${Math.max(16, size * 0.36)}px` : '1.25rem' }}
+              style={{ fontSize: typeof size === 'number' ? `${Math.max(17, size * 0.38)}px` : '1.25rem' }}
             >
               സെലസ് ബ്രദേഴ്സ്
             </span>
-            <div className="flex items-center gap-1.5 mt-0.5">
-              <span className={`text-[10px] font-bold uppercase tracking-wider ${
-                isBlueBg || isTransparentWhite ? 'text-sky-100' : 'text-slate-600'
-              }`}>
-                ZEALOUS BROTHERS
+            <span
+              className={`text-[12px] font-bold ${
+                isBlueBg || isTransparentWhite ? 'text-sky-100' : 'text-slate-800'
+              }`}
+            >
+              കലാ സാംസ്കാരിക വേദി, പുതുപൊന്നാനി
+            </span>
+            {showRegNo && (
+              <span
+                className={`text-[10px] font-medium tracking-tight ${
+                  isBlueBg || isTransparentWhite ? 'text-sky-200' : 'text-slate-500'
+                }`}
+              >
+                Estd: 1994 | Govt. Reg. No. 126/95 | Aff. NYK. No. 429/96
               </span>
-              <span className="text-[10px] text-sky-400 font-bold">•</span>
-              <span className={`text-[10px] font-medium ${
-                isBlueBg || isTransparentWhite ? 'text-sky-200' : 'text-slate-500'
-              }`}>
-                പുതുപൊന്നാനി
-              </span>
-            </div>
+            )}
           </div>
         </div>
       );
@@ -373,33 +385,33 @@ export const ClubLogo: React.FC<ClubLogoProps> = ({
           </div>
         </div>
 
-        <div className="flex flex-col justify-center select-none">
+        <div className="flex flex-col justify-center select-none leading-tight">
           <span
-            className={`font-black tracking-tight leading-none ${
+            className={`font-black tracking-tight ${
               isBlueBg || isTransparentWhite ? 'text-white' : 'text-[#0072ce]'
             }`}
-            style={{ fontSize: typeof size === 'number' ? `${Math.max(16, size * 0.36)}px` : '1.25rem' }}
+            style={{ fontSize: typeof size === 'number' ? `${Math.max(17, size * 0.38)}px` : '1.25rem' }}
           >
             സെലസ് ബ്രദേഴ്സ്
           </span>
 
-          <div className="flex items-center gap-1.5 mt-0.5">
+          <span
+            className={`text-[12px] font-bold ${
+              isBlueBg || isTransparentWhite ? 'text-sky-100' : 'text-slate-800'
+            }`}
+          >
+            കലാ സാംസ്കാരിക വേദി, പുതുപൊന്നാനി
+          </span>
+
+          {showRegNo && (
             <span
-              className={`text-[10px] font-bold uppercase tracking-wider ${
-                isBlueBg || isTransparentWhite ? 'text-sky-100' : 'text-slate-600'
-              }`}
-            >
-              ZEALOUS BROTHERS
-            </span>
-            <span className="text-[10px] text-sky-400 font-bold">•</span>
-            <span
-              className={`text-[10px] font-medium ${
+              className={`text-[10px] font-medium tracking-tight ${
                 isBlueBg || isTransparentWhite ? 'text-sky-200' : 'text-slate-500'
               }`}
             >
-              പുതുപൊന്നാനി
+              Estd: 1994 | Govt. Reg. No. 126/95 | Aff. NYK. No. 429/96
             </span>
-          </div>
+          )}
         </div>
       </div>
     );

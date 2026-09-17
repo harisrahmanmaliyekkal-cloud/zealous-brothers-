@@ -3,6 +3,7 @@ import { ClubProvider, useClub } from './context/ClubContext';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
+import { OurInitiatives } from './components/OurInitiatives';
 import { Programs } from './components/Programs';
 import { BloodWing } from './components/BloodWing';
 import { Magazine } from './components/Magazine';
@@ -98,14 +99,37 @@ function AppContent() {
         onOpenVerification={() => handleOpenVerification()}
       />
 
-      {/* Main Sections */}
+      {/* Main Sections - Strictly structured matching ui.png */}
       <main className="flex-1">
         <Hero onOpenRegisterDonor={() => setIsRegisterDonorOpen(true)} />
         <About />
-        <Programs />
-        <BloodWing onOpenRegisterModal={() => setIsRegisterDonorOpen(true)} />
-        <Magazine />
-        <Gallery />
+        <OurInitiatives
+          onOpenRegisterDonor={() => setIsRegisterDonorOpen(true)}
+          onOpenBloodWing={() => {
+            const el = document.getElementById('blood-wing');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }}
+          onOpenPrograms={() => {
+            const el = document.getElementById('programs');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }}
+          onOpenMagazine={() => {
+            const el = document.getElementById('magazine');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }}
+        />
+        <div id="blood-wing">
+          <BloodWing onOpenRegisterModal={() => setIsRegisterDonorOpen(true)} />
+        </div>
+        <div id="programs">
+          <Programs />
+        </div>
+        <div id="magazine">
+          <Magazine />
+        </div>
+        <div id="gallery">
+          <Gallery />
+        </div>
       </main>
 
       {/* Footer */}

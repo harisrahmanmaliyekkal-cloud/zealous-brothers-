@@ -1,66 +1,292 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="100%" height="100%">
   <defs>
-    <path id="circleTopPath" d="M 90 250 A 160 160 0 0 1 410 250" fill="none" />
-    <path id="circleBottomPath" d="M 405 250 A 155 155 0 0 1 95 250" fill="none" />
+    <!-- Top Arc for KALA SAMSKARIKA VEDI -->
+    <!-- Arc from approx 148° to 32° -->
+    <path id="textArcTop" d="M 175 425 A 385 385 0 0 1 825 425" fill="none" />
+    
+    <!-- Bottom Arc for PUTHUPONNANI -->
+    <!-- Arc from approx 218° to 322° -->
+    <path id="textArcBottom" d="M 810 575 A 380 380 0 0 1 190 575" fill="none" />
+
+    <!-- Arc guide for ZEALOUS inside the left crescent -->
+    <path id="crescentZealousPath" d="M 282 455 C 295 530, 345 615, 430 642" fill="none" />
+
+    <!-- Arc guide for BROTHERS inside the right crescent -->
+    <path id="crescentBrothersPath" d="M 570 642 C 655 615, 705 530, 718 455" fill="none" />
   </defs>
 
-  <!-- Transparent or Clean Circle -->
-  <!-- Outer concentric circles -->
-  <circle cx="250" cy="250" r="236" stroke="#0077b6" stroke-width="6" fill="none" />
-  <circle cx="250" cy="250" r="226" stroke="#0077b6" stroke-width="2.5" fill="none" />
-  <circle cx="250" cy="250" r="156" stroke="#0077b6" stroke-width="3" fill="none" />
-  <circle cx="250" cy="250" r="148" stroke="#0077b6" stroke-width="1.5" fill="none" />
+  <style>
+    .emblem-blue { fill: #1370c8; }
+    .emblem-blue-stroke { stroke: #1370c8; fill: none; }
+    .emblem-white { fill: #ffffff; }
+    .emblem-text {
+      font-family: 'Montserrat', 'Plus Jakarta Sans', 'Arial Black', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 800;
+      fill: #1370c8;
+    }
+  </style>
 
-  <!-- Divider dots -->
-  <circle cx="92" cy="250" r="4.5" fill="#0077b6" />
-  <circle cx="408" cy="250" r="4.5" fill="#0077b6" />
+  <!-- Background (Pure White / Transparent) -->
+  <rect width="1000" height="1000" fill="#ffffff" />
+
+  <!-- ================= 1. CONCENTRIC CIRCULAR FRAME ================= -->
+  <!-- Outermost thick border -->
+  <circle cx="500" cy="500" r="460" stroke="#1370c8" stroke-width="16" fill="none" />
+
+  <!-- Outer text frame circle -->
+  <circle cx="500" cy="500" r="436" stroke="#1370c8" stroke-width="4.5" fill="none" />
+
+  <!-- Inner text frame circle -->
+  <circle cx="500" cy="500" r="338" stroke="#1370c8" stroke-width="4.5" fill="none" />
+
+  <!-- Left & Right Separator Lines between words -->
+  <!-- Left double arc segments -->
+  <path d="M 128 470 A 436 436 0 0 1 130 400" stroke="#1370c8" stroke-width="4.5" fill="none" stroke-linecap="round" />
+  <path d="M 205 478 A 338 338 0 0 1 207 420" stroke="#1370c8" stroke-width="4.5" fill="none" stroke-linecap="round" />
+  
+  <!-- Right double arc segments -->
+  <path d="M 872 470 A 436 436 0 0 0 870 400" stroke="#1370c8" stroke-width="4.5" fill="none" stroke-linecap="round" />
+  <path d="M 795 478 A 338 338 0 0 0 793 420" stroke="#1370c8" stroke-width="4.5" fill="none" stroke-linecap="round" />
 
   <!-- Top Text: KALA SAMSKARIKA VEDI -->
-  <text font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="22" font-weight="900" fill="#0077b6" letter-spacing="4.5">
-    <textPath href="#circleTopPath" startOffset="50%" text-anchor="middle">
+  <text class="emblem-text" font-size="44" letter-spacing="8">
+    <textPath href="#textArcTop" startOffset="50%" text-anchor="middle">
       KALA SAMSKARIKA VEDI
     </textPath>
   </text>
 
   <!-- Bottom Text: PUTHUPONNANI -->
-  <text font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="21" font-weight="900" fill="#0077b6" letter-spacing="5">
-    <textPath href="#circleBottomPath" startOffset="50%" text-anchor="middle">
+  <text class="emblem-text" font-size="44" letter-spacing="11">
+    <textPath href="#textArcBottom" startOffset="50%" text-anchor="middle">
       PUTHUPONNANI
     </textPath>
   </text>
 
-  <!-- Center Torch & Wings -->
-  <!-- Left Wing -->
-  <g fill="#0077b6">
-    <path d="M 220 180 C 190 145 155 170 142 195 C 138 208 132 230 152 250 C 158 256 176 266 200 272 C 182 254 172 232 178 214 C 184 196 202 184 220 180 Z" />
-    <path d="M 190 205 C 168 175 140 200 134 222 C 130 238 134 260 156 278 C 168 286 186 292 208 294 C 186 280 170 258 174 236 C 178 220 186 210 190 205 Z" opacity="0.9" />
+
+  <!-- ================= 2. SOCCER BALL (FOOTBALL) ================= -->
+  <g id="football" transform="translate(500, 420)">
+    <!-- Ball boundary -->
+    <circle cx="0" cy="0" r="118" fill="#ffffff" stroke="#1370c8" stroke-width="5" />
+
+    <!-- Pentagon and Hexagon patch structure -->
+    <!-- Top-Left Pentagon -->
+    <polygon points="-58,-28 -28,-62 -48,-88 -88,-70 -94,-32" fill="#1370c8" stroke="#1370c8" stroke-width="2" />
+
+    <!-- Top-Right Pentagon -->
+    <polygon points="58,-28 28,-62 48,-88 88,-70 94,-32" fill="#1370c8" stroke="#1370c8" stroke-width="2" />
+
+    <!-- Lower-Left Pentagon -->
+    <polygon points="-38,55 -72,25 -65,75 -25,98 -12,68" fill="#1370c8" stroke="#1370c8" stroke-width="2" />
+
+    <!-- Lower-Right Pentagon -->
+    <polygon points="38,55 72,25 65,75 25,98 12,68" fill="#1370c8" stroke="#1370c8" stroke-width="2" />
+
+    <!-- Connecting seam lines between pentagons -->
+    <!-- Center connecting seams -->
+    <line x1="-28" y1="-62" x2="28" y2="-62" stroke="#1370c8" stroke-width="4" />
+    <line x1="-58" y1="-28" x2="-22" y2="0" stroke="#1370c8" stroke-width="4" />
+    <line x1="58" y1="-28" x2="22" y2="0" stroke="#1370c8" stroke-width="4" />
+    <line x1="-22" y1="0" x2="22" y2="0" stroke="#1370c8" stroke-width="4" />
+    <line x1="-22" y1="0" x2="-12" y2="68" stroke="#1370c8" stroke-width="4" />
+    <line x1="22" y1="0" x2="12" y2="68" stroke="#1370c8" stroke-width="4" />
+    <line x1="-12" y1="68" x2="12" y2="68" stroke="#1370c8" stroke-width="4" />
+    <line x1="-25" y1="98" x2="0" y2="118" stroke="#1370c8" stroke-width="4" />
+    <line x1="25" y1="98" x2="0" y2="118" stroke="#1370c8" stroke-width="4" />
+    <line x1="-72" y1="25" x2="-58" y2="-28" stroke="#1370c8" stroke-width="4" />
+    <line x1="72" y1="25" x2="58" y2="-28" stroke="#1370c8" stroke-width="4" />
   </g>
 
-  <!-- Right Wing -->
-  <g fill="#0077b6">
-    <path d="M 280 180 C 310 145 345 170 358 195 C 362 208 368 230 348 250 C 342 256 324 266 300 272 C 318 254 328 232 322 214 C 316 196 298 184 280 180 Z" />
-    <path d="M 310 205 C 332 175 360 200 366 222 C 370 238 366 260 344 278 C 332 286 314 292 292 294 C 314 280 330 258 326 236 C 322 220 314 210 310 205 Z" opacity="0.9" />
+
+  <!-- ================= 3. WINGS (LEFT & RIGHT) ================= -->
+  <!-- Left Wing with stepped downward feathers -->
+  <path d="M 445 320 
+           C 410 260, 360 215, 318 245
+           C 310 252, 305 270, 320 288
+           L 302 312
+           L 326 318
+           L 300 348
+           L 328 352
+           L 298 388
+           L 330 392
+           L 304 430
+           L 338 434
+           L 316 472
+           L 352 476
+           L 335 510
+           L 374 514
+           L 362 542
+           C 385 540, 420 480, 442 410
+           Z" 
+        fill="#1370c8" />
+
+  <!-- Right Wing with stepped downward feathers -->
+  <path d="M 555 320 
+           C 590 260, 640 215, 682 245
+           C 690 252, 695 270, 680 288
+           L 698 312
+           L 674 318
+           L 700 348
+           L 672 352
+           L 702 388
+           L 670 392
+           L 696 430
+           L 662 434
+           L 684 472
+           L 648 476
+           L 665 510
+           L 626 514
+           L 638 542
+           C 615 540, 580 480, 558 410
+           Z" 
+        fill="#1370c8" />
+
+
+  <!-- ================= 4. CENTRAL TORCH & FLAMES ================= -->
+  <!-- Flames at the top -->
+  <g id="torch-flame">
+    <!-- Main outer dynamic flame -->
+    <path d="M 500 152
+             C 488 178, 474 196, 480 215
+             C 468 202, 452 210, 445 228
+             C 438 245, 452 260, 464 252
+             C 458 266, 454 280, 468 292
+             C 475 298, 485 304, 500 304
+             C 515 304, 525 298, 532 292
+             C 546 280, 542 266, 536 252
+             C 548 260, 562 245, 555 228
+             C 548 210, 532 202, 520 215
+             C 526 196, 512 178, 500 152
+             Z" 
+          fill="#1370c8" />
+
+    <!-- Inner flame negative space cutout -->
+    <path d="M 500 205
+             C 492 225, 482 242, 488 260
+             C 492 268, 500 274, 500 274
+             C 500 274, 508 268, 512 260
+             C 518 242, 508 225, 500 205
+             Z" 
+          fill="#ffffff" />
   </g>
 
-  <!-- Upright Torch -->
-  <!-- Flames -->
-  <path d="M 250 140 C 242 160 232 170 240 188 C 244 195 248 198 250 205 C 252 198 256 195 260 188 C 268 170 258 160 250 140 Z" fill="#0077b6" />
-  <path d="M 240 162 C 234 172 228 182 235 192 C 237 190 241 184 240 178 Z" fill="#0077b6" />
-  <path d="M 260 162 C 266 172 272 182 265 192 C 263 190 259 184 260 178 Z" fill="#0077b6" />
+  <!-- 3 Rounded Collar / Neck Rings -->
+  <g id="torch-collar">
+    <rect x="464" y="306" width="72" height="9" rx="4.5" fill="#1370c8" />
+    <rect x="458" y="319" width="84" height="9" rx="4.5" fill="#1370c8" />
+    <rect x="466" y="332" width="68" height="9" rx="4.5" fill="#1370c8" />
+  </g>
 
-  <!-- Torch Bowl -->
-  <path d="M 235 205 L 265 205 L 260 216 L 240 216 Z" fill="#0077b6" />
-  <!-- Torch Handle -->
-  <rect x="246" y="216" width="8" height="74" fill="#0077b6" />
+  <!-- Vertical Textured Torch Shaft -->
+  <g id="torch-shaft">
+    <!-- Main shaft body -->
+    <path d="M 488 344 
+             L 484 370 L 488 400 L 484 430 L 488 460 L 484 490 L 488 520 L 485 550
+             L 515 550 L 512 520 L 516 490 L 512 460 L 516 430 L 512 400 L 516 370 L 512 344
+             Z" 
+          fill="#1370c8" />
+    
+    <!-- White vertical highlight / rib line down center of shaft -->
+    <line x1="500" y1="352" x2="500" y2="546" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" />
+  </g>
 
-  <!-- Central Ribbon with ZEALOUS BROTHERS -->
-  <path d="M 175 285 C 205 278 230 278 250 278 C 270 278 295 278 325 285 C 315 302 290 310 250 310 C 210 310 185 302 175 285 Z" fill="#0077b6" />
-  <text x="250" y="299" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="12" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="2">
-    ZEALOUS BROTHERS
-  </text>
 
-  <!-- 1994 below ribbon -->
-  <text x="250" y="328" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="14" font-weight="800" fill="#0077b6" text-anchor="middle" letter-spacing="2">
-    1994
-  </text>
+  <!-- ================= 5. CRESCENT HORNS WITH ZEALOUS BROTHERS ================= -->
+  <!-- Left Crescent with ZEALOUS -->
+  <g id="crescent-zealous">
+    <path d="M 246 390
+             C 240 450, 275 560, 360 634
+             C 385 656, 420 672, 452 678
+             C 440 655, 410 638, 385 620
+             C 335 582, 305 520, 298 460
+             C 292 410, 290 380, 246 390
+             Z"
+          fill="#ffffff"
+          stroke="#1370c8"
+          stroke-width="5.5" />
+
+    <!-- Word ZEALOUS following crescent curve -->
+    <text font-family="'Montserrat', 'Plus Jakarta Sans', Arial, sans-serif" font-size="30" font-weight="900" fill="#1370c8" letter-spacing="3.5">
+      <textPath href="#crescentZealousPath" startOffset="48%" text-anchor="middle">
+        ZEALOUS
+      </textPath>
+    </text>
+  </g>
+
+  <!-- Right Crescent with BROTHERS -->
+  <g id="crescent-brothers">
+    <path d="M 754 390
+             C 760 450, 725 560, 640 634
+             C 615 656, 580 672, 548 678
+             C 560 655, 590 638, 615 620
+             C 665 582, 695 520, 702 460
+             C 708 410, 710 380, 754 390
+             Z"
+          fill="#ffffff"
+          stroke="#1370c8"
+          stroke-width="5.5" />
+
+    <!-- Word BROTHERS following crescent curve -->
+    <text font-family="'Montserrat', 'Plus Jakarta Sans', Arial, sans-serif" font-size="30" font-weight="900" fill="#1370c8" letter-spacing="3.5">
+      <textPath href="#crescentBrothersPath" startOffset="52%" text-anchor="middle">
+        BROTHERS
+      </textPath>
+    </text>
+  </g>
+
+
+  <!-- ================= 6. FOUNTAIN PEN NIB ================= -->
+  <g id="pen-nib">
+    <!-- Pen nib body -->
+    <path d="M 485 550
+             L 472 580
+             C 470 610, 488 642, 500 668
+             C 512 642, 530 610, 528 580
+             L 515 550
+             Z"
+          fill="#ffffff"
+          stroke="#1370c8"
+          stroke-width="5.5" />
+
+    <!-- Nib breather hole -->
+    <circle cx="500" cy="590" r="7.5" fill="#1370c8" />
+
+    <!-- Nib slit -->
+    <line x1="500" y1="597" x2="500" y2="668" stroke="#1370c8" stroke-width="4.5" />
+
+    <!-- Ink drop dot below nib tip -->
+    <circle cx="500" cy="686" r="6" fill="#1370c8" />
+  </g>
+
+
+  <!-- ================= 7. REGISTRATION RIBBON (126/95 & 429/96) ================= -->
+  <g id="registration-ribbon">
+    <!-- Swallowtail Left Ribbon fold -->
+    <path d="M 360 648 L 305 648 L 325 660 L 305 672 L 360 672 Z" fill="#ffffff" stroke="#1370c8" stroke-width="4" stroke-linejoin="round" />
+    <!-- Swallowtail Right Ribbon fold -->
+    <path d="M 640 648 L 695 648 L 675 660 L 695 672 L 640 672 Z" fill="#ffffff" stroke="#1370c8" stroke-width="4" stroke-linejoin="round" />
+
+    <!-- Ribbon folding shadows -->
+    <polygon points="360,642 360,648 375,648" fill="#1370c8" />
+    <polygon points="640,642 640,648 625,648" fill="#1370c8" />
+
+    <!-- Central horizontal banner divided into two segments -->
+    <!-- Left Box: 126/95 -->
+    <rect x="350" y="632" width="142" height="36" fill="#ffffff" stroke="#1370c8" stroke-width="4.5" />
+    <text x="421" y="657" font-family="'Montserrat', 'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" fill="#1370c8" text-anchor="middle" letter-spacing="1">
+      126/95
+    </text>
+
+    <!-- Right Box: 429/96 -->
+    <rect x="508" y="632" width="142" height="36" fill="#ffffff" stroke="#1370c8" stroke-width="4.5" />
+    <text x="579" y="657" font-family="'Montserrat', 'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" fill="#1370c8" text-anchor="middle" letter-spacing="1">
+      429/96
+    </text>
+
+    <!-- Lower ribbon bottom folds -->
+    <path d="M 330 706 L 395 706 L 440 668 L 375 668 Z" fill="#ffffff" stroke="#1370c8" stroke-width="3.5" />
+    <path d="M 330 706 L 350 716 L 330 726 L 415 726 L 440 706 Z" fill="#ffffff" stroke="#1370c8" stroke-width="3.5" />
+
+    <path d="M 670 706 L 605 706 L 560 668 L 625 668 Z" fill="#ffffff" stroke="#1370c8" stroke-width="3.5" />
+    <path d="M 670 706 L 650 716 L 670 726 L 585 726 L 560 706 Z" fill="#ffffff" stroke="#1370c8" stroke-width="3.5" />
+  </g>
 </svg>

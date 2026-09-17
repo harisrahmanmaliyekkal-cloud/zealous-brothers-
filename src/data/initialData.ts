@@ -208,6 +208,14 @@ export const CLUB_MAGAZINES: Magazine[] = [
 
 export const GALLERY_ITEMS: GalleryItem[] = [
   {
+    id: 'g0',
+    title: 'Puthuponnani Estuary & Beach (പുതുപൊന്നാനി അഴിമുഖം)',
+    category: 'Youth',
+    imageUrl: '/hero-puthuponnani.jpg',
+    date: 'Puthuponnani, Malappuram',
+    caption: 'The scenic coastal haven where Canoli Canal joins the Arabian Sea, the proud home turf of Zealous Brothers.'
+  },
+  {
     id: 'g1',
     title: 'Zealous 7s Grand Finale',
     category: 'Sports',

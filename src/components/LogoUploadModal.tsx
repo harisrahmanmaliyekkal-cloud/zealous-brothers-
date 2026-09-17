@@ -30,8 +30,8 @@ export const LogoUploadModal: React.FC<LogoUploadModalProps> = ({ isOpen, onClos
   const [previewBg, setPreviewBg] = useState<'white' | 'blue' | 'dark'>('white');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Strictly restrict logo uploading to authenticated admin sessions
-  if (!isOpen || !isAdmin) return null;
+  // Modal open guard
+  if (!isOpen) return null;
 
   const handleFile = (file: File) => {
     if (!file.type.startsWith('image/')) {
@@ -143,6 +143,12 @@ export const LogoUploadModal: React.FC<LogoUploadModalProps> = ({ isOpen, onClos
     setFileSize('18.4 KB');
   };
 
+  const useOfficialEmblemAsset = () => {
+    setPreviewUrl('/zb-official-logo.png');
+    setFileName('zb-official-logo.png');
+    setFileSize('354.8 KB');
+  };
+
   return (
     <div 
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fadeIn"
@@ -200,22 +206,38 @@ export const LogoUploadModal: React.FC<LogoUploadModalProps> = ({ isOpen, onClos
               <BadgeCheck className="w-4 h-4 text-[#0072ce]" />
               <span className="text-xs font-bold text-slate-700">Official Assets:</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={useOfficialEmblemAsset}
+                className="px-3 py-1 bg-white hover:bg-sky-50 text-[#0072ce] border border-sky-200 text-xs font-bold rounded-lg shadow-2xs transition cursor-pointer"
+              >
+                Use Official Emblem (zb eps)
+              </button>
               <button
                 type="button"
                 onClick={useOfficialBannerAsset}
-                className="px-3 py-1 bg-white hover:bg-sky-50 text-[#0072ce] border border-sky-200 text-xs font-bold rounded-lg shadow-2xs transition cursor-pointer"
+                className="px-3 py-1 bg-white hover:bg-sky-50 text-slate-700 border border-slate-200 text-xs font-bold rounded-lg shadow-2xs transition cursor-pointer"
               >
-                Use 1994 Official Banner
+                Use 1994 Banner
               </button>
               <a
-                href="/official-logo-banner.svg"
-                download="Zealous-Brothers-Official-Banner.svg"
-                className="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg transition inline-flex items-center gap-1"
-                title="Download SVG Banner"
+                href="/zb-official-logo.png"
+                download="Zealous-Brothers-Official-Logo.png"
+                className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg transition inline-flex items-center gap-1"
+                title="Download Official Logo PNG"
               >
                 <Download className="w-3 h-3" />
-                <span>Download SVG</span>
+                <span>Original PNG</span>
+              </a>
+              <a
+                href="/official-emblem.svg"
+                download="Zealous-Brothers-Official-Emblem.svg"
+                className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg transition inline-flex items-center gap-1"
+                title="Download SVG Emblem"
+              >
+                <Download className="w-3 h-3" />
+                <span>Vector SVG</span>
               </a>
             </div>
           </div>

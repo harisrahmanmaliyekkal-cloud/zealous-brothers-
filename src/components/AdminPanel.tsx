@@ -52,6 +52,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ isOpen, onClose, onOpenV
     updateProgramStatus,
     magazines,
     customLogoUrl,
+    heroBannerUrl,
+    uploadHeroBanner,
+    resetHeroBanner,
     openLogoUploadModal,
     resetCustomLogo
   } = useClub();
@@ -976,6 +979,73 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ isOpen, onClose, onOpenV
 
                     <div className="w-full text-center text-xs text-sky-200/70 pt-3 border-t border-[#00386e]">
                       Permanent in sticky top bar and mobile navigation menu
+                    </div>
+                  </div>
+                </div>
+
+                {/* Official Hero Banner Image Management */}
+                <div className="bg-[#002244] border border-sky-500/30 rounded-3xl p-6 shadow-xl space-y-4">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div>
+                      <h3 className="text-lg font-black text-white flex items-center gap-2">
+                        <span>Official Website Hero Banner Image</span>
+                        <span className="text-xs font-normal text-sky-300 font-mono">
+                          ● പുതുപൊന്നാനി അഴിമുഖ തീരം (Puthuponnani Estuary & Beach)
+                        </span>
+                      </h3>
+                      <p className="text-xs text-sky-200/80 mt-1 max-w-2xl">
+                        വെബ്സൈറ്റിന്റെ തലക്കെട്ട് ബാനറായി നൽകിയിട്ടുള്ള ഫോട്ടോ. പുതുപൊന്നാനി കടൽതീരത്തിന്റെയും അഴിമുഖത്തിന്റെയും യഥാർത്ഥ ചിത്രം.
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-2.5">
+                      <label
+                        className="px-4 py-2.5 bg-[#0072ce] hover:bg-[#005bb5] text-white text-xs font-black rounded-xl transition flex items-center gap-2 shadow-md cursor-pointer border border-sky-400/40"
+                      >
+                        <Upload className="w-4 h-4" />
+                        <span>Upload New Banner (ചിത്രം മാറ്റുക)</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (!file) return;
+                            const reader = new FileReader();
+                            reader.onload = () => {
+                              if (typeof reader.result === 'string') {
+                                uploadHeroBanner(reader.result);
+                              }
+                            };
+                            reader.readAsDataURL(file);
+                          }}
+                        />
+                      </label>
+                      {heroBannerUrl !== '/hero-puthuponnani.jpg' && (
+                        <button
+                          type="button"
+                          onClick={resetHeroBanner}
+                          className="px-4 py-2.5 bg-red-950/60 hover:bg-red-900 border border-red-800 text-red-200 text-xs font-bold rounded-xl transition cursor-pointer"
+                        >
+                          Reset to Puthuponnani Photo
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Banner Preview */}
+                  <div className="relative rounded-2xl overflow-hidden border border-sky-500/30 max-h-56">
+                    <img
+                      src={heroBannerUrl || '/hero-puthuponnani.jpg'}
+                      alt="Current Hero Banner Preview"
+                      className="w-full h-56 object-cover object-center"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#001733]/90 via-transparent to-transparent flex items-end p-4">
+                      <div className="text-xs text-white font-medium flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                        <span>Active Hero Banner: Puthuponnani Estuary & Beach (പുതുപൊന്നാനി)</span>
+                      </div>
                     </div>
                   </div>
                 </div>

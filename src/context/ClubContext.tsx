@@ -10,6 +10,8 @@ import {
   deleteDoc, 
   doc, 
   updateDoc, 
+  setDoc,
+  getDoc,
   onSnapshot,
   signInWithEmailAndPassword,
   signOut,
@@ -28,11 +30,14 @@ interface ClubContextType {
   isAdmin: boolean;
   adminUserEmail: string | null;
   customLogoUrl: string | null;
+  heroBannerUrl: string;
   isLogoUploadModalOpen: boolean;
   openLogoUploadModal: () => void;
   closeLogoUploadModal: () => void;
   uploadCustomLogo: (logoDataUrl: string) => Promise<{ success: boolean; error?: string }>;
   resetCustomLogo: () => Promise<void>;
+  uploadHeroBanner: (bannerDataUrl: string) => Promise<{ success: boolean; error?: string }>;
+  resetHeroBanner: () => Promise<void>;
   addDonor: (donor: Omit<Donor, 'id'>) => Promise<{ success: boolean; error?: string }>;
   deleteDonor: (id: string) => Promise<{ success: boolean; error?: string }>;
   toggleDonorAvailability: (id: string, currentStatus?: boolean) => Promise<void>;
@@ -68,9 +73,16 @@ export const ClubProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [customLogoUrl, setCustomLogoUrl] = useState<string | null>(() => {
     try {
-      return localStorage.getItem('zealous_custom_logo');
+      return localStorage.getItem('zealous_custom_logo') || '/zb-official-logo.png';
     } catch {
-      return null;
+      return '/zb-official-logo.png';
+    }
+  });
+  const [heroBannerUrl, setHeroBannerUrl] = useState<string>(() => {
+    try {
+      return localStorage.getItem('zealous_hero_banner') || '/hero-puthuponnani.jpg';
+    } catch {
+      return '/hero-puthuponnani.jpg';
     }
   });
   const [isLogoUploadModalOpen, setIsLogoUploadModalOpen] = useState(false);
@@ -78,25 +90,51 @@ export const ClubProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const openLogoUploadModal = () => setIsLogoUploadModalOpen(true);
   const closeLogoUploadModal = () => setIsLogoUploadModalOpen(false);
 
+  const uploadHeroBanner = async (bannerDataUrl: string) => {
+    try {
+      setHeroBannerUrl(bannerDataUrl);
+      localStorage.setItem('zealous_hero_banner', bannerDataUrl);
+
+      try {
+        const settingsDoc = doc(db, 'settings', 'branding');
+        await setDoc(settingsDoc, { heroBannerUrl: bannerDataUrl, updatedAt: new Date().toISOString() }, { merge: true });
+      } catch (firestoreErr) {
+        console.info('Hero banner saved to local browser storage:', firestoreErr);
+      }
+
+      showToast('ഹീറോ ബാനർ ചിത്രം വിജയകരമായി മാറ്റി! (Hero banner updated across all devices)');
+      return { success: true };
+    } catch (err: any) {
+      return { success: false, error: err.message || 'Failed to save hero banner' };
+    }
+  };
+
+  const resetHeroBanner = async () => {
+    setHeroBannerUrl('/hero-puthuponnani.jpg');
+    localStorage.removeItem('zealous_hero_banner');
+    try {
+      const settingsDoc = doc(db, 'settings', 'branding');
+      await setDoc(settingsDoc, { heroBannerUrl: '/hero-puthuponnani.jpg', updatedAt: new Date().toISOString() }, { merge: true });
+    } catch {
+      // ignore
+    }
+    showToast('പുതുപൊന്നാനി ഡിഫോൾട്ട് ബാനർ പുനഃസ്ഥാപിച്ചു (Reset to Puthuponnani default)');
+  };
+
   const uploadCustomLogo = async (logoDataUrl: string) => {
     try {
       setCustomLogoUrl(logoDataUrl);
       localStorage.setItem('zealous_custom_logo', logoDataUrl);
 
-      // Persist to Firestore if available
+      // Persist to Firestore across all devices
       try {
         const settingsDoc = doc(db, 'settings', 'branding');
-        await updateDoc(settingsDoc, { logoUrl: logoDataUrl, updatedAt: new Date().toISOString() }).catch(async () => {
-          // If doc doesn't exist yet, try to create it via addDoc or set
-          const { setDoc } = await import('firebase/firestore');
-          await setDoc(settingsDoc, { logoUrl: logoDataUrl, updatedAt: new Date().toISOString() });
-        });
+        await setDoc(settingsDoc, { logoUrl: logoDataUrl, updatedAt: new Date().toISOString() }, { merge: true });
       } catch (firestoreErr) {
-        // Fallback silently to localStorage
         console.info('Logo saved to local browser storage:', firestoreErr);
       }
 
-      showToast('ഔദ്യോഗിക ലോഗോ വിജയകരമായി മാറ്റം വരുത്തി! (Logo updated)');
+      showToast('ഔദ്യോഗിക ലോഗോ എല്ലാ ഡിവൈസുകൾക്കുമായി അപ്‌ഡേറ്റ് ചെയ്തു! (Logo updated for all devices)');
       return { success: true };
     } catch (err: any) {
       return { success: false, error: err.message || 'Failed to save logo' };
@@ -104,16 +142,15 @@ export const ClubProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const resetCustomLogo = async () => {
-    setCustomLogoUrl(null);
+    setCustomLogoUrl('/zb-official-logo.png');
     localStorage.removeItem('zealous_custom_logo');
     try {
       const settingsDoc = doc(db, 'settings', 'branding');
-      const { deleteDoc } = await import('firebase/firestore');
-      await deleteDoc(settingsDoc);
+      await setDoc(settingsDoc, { logoUrl: '/zb-official-logo.png', updatedAt: new Date().toISOString() }, { merge: true });
     } catch {
       // ignore
     }
-    showToast('ഡിഫോൾട്ട് വെക്ടർ ലോഗോ പുനഃസ്ഥാപിച്ചു (Reset to default)');
+    showToast('ഔദ്യോഗിക ലോഗോ പുനഃസ്ഥാപിച്ചു (Reset to official logo)');
   };
 
   const showToast = (msg: string) => {
@@ -122,6 +159,39 @@ export const ClubProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       setToastMessage((prev) => (prev === msg ? null : prev));
     }, 4000);
   };
+
+  // 0. Sync Branding (Official Logo & Hero Banner) across ALL devices in real-time
+  useEffect(() => {
+    let unsubscribe: () => void = () => {};
+    let isMounted = true;
+
+    try {
+      const settingsDoc = doc(db, 'settings', 'branding');
+      unsubscribe = onSnapshot(settingsDoc, (snapshot) => {
+        if (!isMounted) return;
+        if (snapshot.exists()) {
+          const data = snapshot.data();
+          if (data?.logoUrl) {
+            setCustomLogoUrl(data.logoUrl);
+            localStorage.setItem('zealous_custom_logo', data.logoUrl);
+          }
+          if (data?.heroBannerUrl) {
+            setHeroBannerUrl(data.heroBannerUrl);
+            localStorage.setItem('zealous_hero_banner', data.heroBannerUrl);
+          }
+        }
+      }, (err) => {
+        console.warn('Branding settings subscription fallback:', err);
+      });
+    } catch (e) {
+      console.warn('Firestore branding setup error:', e);
+    }
+
+    return () => {
+      isMounted = false;
+      unsubscribe();
+    };
+  }, []);
 
   // 1. Firebase Auth Listener with Demo Session Persistence
   useEffect(() => {
@@ -772,11 +842,14 @@ export const ClubProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         isAdmin,
         adminUserEmail,
         customLogoUrl,
+        heroBannerUrl,
         isLogoUploadModalOpen,
         openLogoUploadModal,
         closeLogoUploadModal,
         uploadCustomLogo,
         resetCustomLogo,
+        uploadHeroBanner,
+        resetHeroBanner,
         addDonor,
         deleteDonor,
         toggleDonorAvailability,
